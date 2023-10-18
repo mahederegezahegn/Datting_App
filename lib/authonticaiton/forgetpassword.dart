@@ -1,117 +1,226 @@
 import 'package:flutter/material.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
-  
-  TextEditingController _emailController = TextEditingController();
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+ DateTime? selectedDate; // Variable to store the selected date
+ 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFECEFF1), // Customize the background color
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-               ElevatedButton(onPressed: (){
-                 Navigator.of(context).pop();
-              }, child: Text('back')),
-              Text(
-                'Forgot Password',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+    return  Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Profile Details',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                      fontSize: 40,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Please enter your email address below. We will send you a link to reset your password.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey,
+                SizedBox(
+                  height: 30,
                 ),
-              ),
-              SizedBox(height: 30),
-              TextField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  labelText: 'Email',
-                  prefixIcon: Icon(Icons.email),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                    borderSide: BorderSide.none,
+                Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    CircleAvatar(
+  radius: 80.0,
+  backgroundColor: Colors.pink,
+  foregroundColor: Colors.white,
+  child: Padding(
+    padding: EdgeInsets.all(8.0),
+    child: CircleAvatar(
+      radius: 76.0,
+      backgroundImage: AssetImage('assets/model (1).jpg'), // Replace with your profile image
+      backgroundColor: Colors.white,
+    ),
+  ),
+),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.camera_alt,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          // Perform action when the camera icon is pressed
+                          print('Camera icon pressed');
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Colors.pink,
+                    ),
+                    labelText: 'First Name',
+                    labelStyle: TextStyle(color: Colors.black),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.grey.withOpacity(.4)),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.pink),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
                   ),
-                  contentPadding: EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 20,
-                  ),
+                  // Add other properties and validators as needed
                 ),
-              ),
-              SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  // Perform forgot password logic here
-                  String email = _emailController.text;
+                SizedBox(height: 8.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Colors.pink,
+                    ),
+                    labelText: 'Last Name',
+                    labelStyle: TextStyle(color: Colors.black),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.grey.withOpacity(.4)),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.pink),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                  // Add other properties and validators as needed
+                ),
+                SizedBox(height: 16.0),
+                TextFormField(
+  decoration: InputDecoration(
+    prefixIcon: IconButton(
+      icon: Icon(
+        Icons.calendar_today,
+        color: Colors.pink,
+      ),
+      onPressed: () async {
+        final DateTime? pickedDate = await showDatePicker(
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2100),
+        );
 
-                  // Validate the email field
-                  if (email.isEmpty) {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Validation Error'),
-                          content: Text('Please enter your email address.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('OK'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    // Send password reset link to the provided email address
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Password Reset'),
-                          content: Text(
-                              'An email with instructions to reset your password has been sent to $email.'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                // Navigate to the login page or any other desired page
-                              },
-                              child: Text('OK'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
-                },
-                child: Text('Reset Password'),
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple, // Customize the button color
-                  padding: EdgeInsets.all( 15),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                ),
-              ),
-            ],
+        if (pickedDate != null) {
+          setState(() {
+            selectedDate = pickedDate;
+          });
+        }
+      },
+    ),
+    labelText: 'Choose birthday date',
+    
+    labelStyle: TextStyle(color: Colors.pink),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey.withOpacity(.4)),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.pink),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.red),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.red),
+      borderRadius: BorderRadius.circular(10.0),
+    ),
+  ),
+  readOnly: true, // Make the field read-only
+  onTap: () async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2100),
+    );
+
+    if (pickedDate != null) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
+  },
+  controller: TextEditingController(
+    text: selectedDate != null
+        ? DateFormat('yyyy-MM-dd').format(selectedDate!)
+        : '', // Display the selected date in the text field
+  ),
+),
+SizedBox(height: 20,),
+  InkWell(
+          onTap: (){},
+          child: Container(
+            width: double.infinity,
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.pink,
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Center(child: Text('Continue',style: TextStyle(color: Colors.white,fontSize: 20),)),
           ),
-        ),
+         ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: 70,
+            right: 18,
+            child: Container(
+                padding: EdgeInsets.only(bottom: 6, left: 6, right: 2),
+                margin: EdgeInsets.all(16.0),
+                child: Text(
+                  'Skip',
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.pink,
+                      fontSize: 20),
+                )),
+          ),
+        ],
       ),
     );
   }
+  
+  DateFormat(String s) {}
 }

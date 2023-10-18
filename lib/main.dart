@@ -102,6 +102,8 @@ class Onboardingpage extends StatefulWidget {
 
 class _OnboardingpageState extends State<Onboardingpage> {
   PageController _controller = PageController();
+int _currentPageIndex = 0;
+int _totalPages = 3; 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,6 +111,11 @@ class _OnboardingpageState extends State<Onboardingpage> {
       children: [
         PageView(
           controller: _controller,
+           onPageChanged: (int pageIndex) {
+    setState(() {
+      _currentPageIndex = pageIndex;
+    });
+  },
           children: [
             Column(
               children: [
@@ -280,8 +287,9 @@ class _OnboardingpageState extends State<Onboardingpage> {
                           width: 70,
                           height: 250,
                           decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20.0),
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20.0),
+                              bottomRight: Radius.circular(20.0),
                             ),
                             color: Colors.grey,
                             image: DecorationImage(
@@ -308,8 +316,9 @@ class _OnboardingpageState extends State<Onboardingpage> {
                           width: 70,
                           height: 250,
                           decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(20.0),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              bottomLeft: Radius.circular(20.0),
                             ),
                             color: Colors.grey,
                             image: DecorationImage(
@@ -353,30 +362,31 @@ class _OnboardingpageState extends State<Onboardingpage> {
               controller: _controller,
               count: 3,
             ),),
-        Container(
-          alignment: Alignment(0, 0.85),
-          child: ElevatedButton(
-            onPressed: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => WelcomePage()),
-    );
-  },
-            child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              child: Text('Create an account'),
-            ),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.pink),
-            ),
-          ),
+      Container(
+  alignment: Alignment(0, 0.85),
+  child: ElevatedButton(
+    style: ButtonStyle(
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
         ),
+      ),
+      backgroundColor: MaterialStateProperty.all<Color>(Colors.pink),
+    ),
+    onPressed: _currentPageIndex == _totalPages - 1
+        ? () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => WelcomePage()),
+            );
+          }
+        : null, // Disable the button if it's not the last page
+    child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      child: Text('Create an account',style:TextStyle(color:Colors.white,fontSize: 17)),
+    ),
+  ),
+),
         Container(
             alignment: Alignment(0, 0.95),
             child: Row(
