@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
       theme: ThemeData(
         primaryColor: Colors.pink,
+        
       ),
     );
   }
