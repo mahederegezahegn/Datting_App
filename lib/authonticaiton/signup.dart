@@ -143,7 +143,13 @@ SizedBox(height: 20,),
 ),
         SizedBox(height: 50,),
          InkWell(
-          onTap: (){},
+          onTap: (){
+             Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => OTPVerificationPage(phoneNumber: '',)),
+            );
+            //OTPVerificationPage
+          },
           child: Container(
             width: double.infinity,
             height: 50,

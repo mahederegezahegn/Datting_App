@@ -1,3 +1,4 @@
+import 'package:date/screen/homepage.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -402,7 +403,7 @@ class Interest extends StatefulWidget {
 }
 
 class _InterestState extends State<Interest> {
-  List<bool> isSelected = List.generate(8, (index) => false);
+  List<bool> isSelected = List.generate(8, (index) => true);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -777,7 +778,7 @@ class _InterestState extends State<Interest> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => Profile()),
+                        MaterialPageRoute(builder: (context) => Contact()),
                       );
                     },
                     child: Container(
@@ -803,3 +804,124 @@ class _InterestState extends State<Interest> {
 }
 
  
+
+
+class Contact extends StatelessWidget {
+  const Contact({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold( 
+   body: Container(
+  
+      margin: EdgeInsets.symmetric(horizontal: 40,vertical: 50),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+  child:Column(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text('Skip' ,style: TextStyle(fontSize: 28,color:Colors.pink),)
+        ],
+      ),
+Image.asset('assets/Social media-bro.png'),
+          Column(
+            children: [
+                Text('Search friends',textAlign: TextAlign.center,style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700),),
+                SizedBox(height: 10,),
+   Text('You can find friends from your contact list to connected',textAlign: TextAlign.center,),
+ 
+            ],
+          ),
+   InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Notify()),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 40),
+                padding: EdgeInsets.all(20),
+                width:500,
+                decoration: BoxDecoration(
+                  color: Colors.pink,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text(
+                  'Access to a contact list',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+    ],
+
+  )   ) 
+    );
+  }
+}
+
+
+
+class Notify extends StatelessWidget {
+  const Notify({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold( 
+   body: Container(
+  
+      margin: EdgeInsets.symmetric(horizontal: 40,vertical: 50),
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+  child:Column(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text('Skip' ,style: TextStyle(fontSize: 28,color:Colors.pink),)
+        ],
+      ),
+Image.asset('assets/New message-amico.png'),
+          Column(
+            children: [
+                Text('Enable notification',textAlign: TextAlign.center,style: TextStyle(fontSize: 30,fontWeight: FontWeight.w700),),
+                SizedBox(height: 10,),
+   Text('Get push-notification when you get the match or receive a message',textAlign: TextAlign.center,),
+ 
+            ],
+          ),
+   InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 40),
+                padding: EdgeInsets.all(20),
+                width:500,
+                decoration: BoxDecoration(
+                  color: Colors.pink,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Text(
+                  'I want to be notified',
+                  style: TextStyle(color: Colors.white, fontSize: 15),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            )
+    ],
+
+  )   ) 
+    );
+  }
+}
